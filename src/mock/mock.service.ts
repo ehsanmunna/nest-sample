@@ -5,7 +5,10 @@ export class MockService {
     /**
      * getPeople
      */
-    public getPeople() {
-        return 'Hello people';
+    public sayHello() {
+        return 'Hello Developer';
+    }
+    public sayHelloTo(name: string) {
+        return `Hello ${name}, you are working as a developer`;
     }
 }

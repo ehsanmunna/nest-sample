@@ -1,18 +1,20 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { MockController } from './mock.controller';
+import { MockController } from "./mock.controller";
+import { MockService } from "./mock.service";
+
 
 describe('MockController', () => {
-  let controller: MockController;
+  let mockController: MockController;
+  let mockService: MockService;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [MockController],
-    }).compile();
-
-    controller = module.get<MockController>(MockController);
+  beforeEach(() => {
+    mockService = new MockService();
+    mockController = new MockController(mockService);
   });
 
-  it('should be defined', () => {
-    expect(controller.findAll()).toBe('Hello people');
+  describe('Say hello to developer', () => {
+    it('should return a string value: Hello Developer', async () => {
+      const result = 'Hello Developer';
+      expect(await mockController.sayHello()).toBe(result);
+    });
   });
 });

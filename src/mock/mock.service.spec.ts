@@ -16,6 +16,6 @@ describe('MockService', () => {
     expect(service).toBeDefined();
   });
   it('return data', () => {
-    expect(service.getPeople()).toBe('Hello people');
+    expect(service.sayHello()).toBe('Hello Developer');
   });
 });
