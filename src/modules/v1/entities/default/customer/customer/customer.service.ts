@@ -11,10 +11,11 @@ export class CustomerService {
       ) {}
 
     public async save(_entity: CustomerRequestDto): Promise<CustomerEntity> {
-        return await this.repository.save(_entity);
+        const newUser = this.repository.create(_entity);
+        return this.repository.save(newUser);
     }
 
-    public async find(_fields): Promise<CustomerEntity[]> {
+    public async find(_fields?): Promise<CustomerEntity[]> {
         return await this.repository.find(_fields);
     }
 
