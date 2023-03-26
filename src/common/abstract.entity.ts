@@ -1,6 +1,6 @@
 import { BeforeInsert, BeforeUpdate, Column, Index, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
-export class AbstractEntity {
+export abstract class AbstractEntity {
     @PrimaryColumn({ readonly: true })
     @PrimaryGeneratedColumn()
     @Index({ unique: true })
