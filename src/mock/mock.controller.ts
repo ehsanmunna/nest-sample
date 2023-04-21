@@ -6,27 +6,25 @@ import { MockService } from './mock.service';
 @ApiTags('Mock')
 @Controller('mock')
 export class MockController {
-    constructor(
-        private service: MockService
-    ) { }
+  constructor(private service: MockService) {}
 
-    @Get()
-    @ApiResponse({
-        status: 200,
-        description: 'Say hello',
-        type: String
-    })
-    sayHello(): string {
-        return this.service.sayHello();
-    }
+  @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Say hello',
+    type: String,
+  })
+  sayHello(): string {
+    return this.service.sayHello();
+  }
 
-    @Get('/:name')
-    @ApiResponse({
-        status: 200,
-        description: 'Say hello to developer',
-        type: String
-    })
-    sayHelloTo(@Param() params: MockQueryDto): MockQueryDto | string {
-        return this.service.sayHelloTo(params.name);
-    }
+  @Get('/:name')
+  @ApiResponse({
+    status: 200,
+    description: 'Say hello to developer',
+    type: String,
+  })
+  sayHelloTo(@Param() params: MockQueryDto): MockQueryDto | string {
+    return this.service.sayHelloTo(params.name);
+  }
 }
