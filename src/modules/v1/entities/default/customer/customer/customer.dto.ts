@@ -1,5 +1,6 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, IntersectionType } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
+import { CommonDto } from "src/common/common.dto";
 
 
 export class CustomerRequestDto {
@@ -7,4 +8,5 @@ export class CustomerRequestDto {
     @ApiProperty({example: 'Ehsan Munna', maxLength: 150})
     name: string;
 }
-export class CustomerDto {}
+
+export class CustomerDto extends IntersectionType(CommonDto, CustomerRequestDto) {}

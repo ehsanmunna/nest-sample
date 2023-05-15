@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CustomerRequestDto } from './customer.dto';
 import { CustomerEntity } from './customer.entity';
+import { CommonIdDto } from 'src/common/common.dto';
 
 @Injectable()
 export class CustomerService {
@@ -19,7 +20,15 @@ export class CustomerService {
         return await this.repository.find(_fields);
     }
 
-    public async findOne(_fields): Promise<CustomerEntity> {
-        return await this.repository.findOne(_fields);
+    public async findOne(id: string): Promise<CustomerEntity> {
+        return await this.repository.findOneBy({id});
+    }
+
+    public async update(params: CommonIdDto, _entity: any): Promise<any> {
+        return await this.repository.update(params.id, _entity);
+    }
+
+    public async delete(id: string): Promise<any> {
+        return await this.repository.delete(id);
     }
 }
