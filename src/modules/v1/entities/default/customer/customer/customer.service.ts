@@ -1,9 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CustomerRequestDto } from './customer.dto';
 import { CustomerEntity } from './customer.entity';
-import { CommonIdDto } from 'src/common/common.dto';
 
 @Injectable()
 export class CustomerService {
@@ -24,11 +23,25 @@ export class CustomerService {
         return await this.repository.findOneBy({id});
     }
 
-    public async update(params: CommonIdDto, _entity: any): Promise<any> {
-        return await this.repository.update(params.id, _entity);
+    public async update(id: string, _entity: any): Promise<any> {
+        try {
+            await this.repository.update(id, _entity);
+            return 'Successfully updated';
+        } catch (error) {
+            return new Error(error);
+        }
     }
 
     public async delete(id: string): Promise<any> {
-        return await this.repository.delete(id);
+        const isExist = await this.findOne(id);
+        if (!isExist) {
+            return new NotFoundException();
+        }
+        try {
+            await this.repository.delete(id);
+            return 'Successfully deleted';
+        } catch (error) {
+            return new Error(error);
+        }
     }
 }

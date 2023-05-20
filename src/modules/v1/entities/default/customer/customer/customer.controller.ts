@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CommonIdDto } from 'src/common/common.dto';
-import { CustomerDto, CustomerRequestDto } from './customer.dto';
+import { CustomerDto, CustomerRequestDto, UpdateCustomerDto } from './customer.dto';
 import { CustomerService } from './customer.service';
 @ApiTags('Customer')
 @Controller('customer')
@@ -24,18 +24,22 @@ export class CustomerController {
         return this.customerService.save(customer);
     }
 
-    @Get('/:id')
+    @Get(':id')
     @ApiResponse({ type: CustomerDto })
     @UsePipes(ValidationPipe)
-    async findById(@Query() params: CommonIdDto) {
-        return this.customerService.findOne(params.id);
+    async findById(@Param('id') id: string) {
+        return this.customerService.findOne(id);
     }
 
-    @Put('/:id')
-    @ApiResponse({ type: CustomerDto })
+    @Put(':id')
+    @ApiResponse({
+        type: UpdateCustomerDto,
+        status: HttpStatus.OK,
+        description: 'The record has been successfully updated.',
+    })
     @UsePipes(ValidationPipe)
-    async update(@Query() params: CommonIdDto, @Body() customer: CustomerRequestDto) {
-        return this.customerService.update(params, customer);
+    update(@Param('id') id: string, @Body() updateUserDto: UpdateCustomerDto) {
+        return this.customerService.update(id, updateUserDto);
     }
     
     @Delete('/:id')
