@@ -4,7 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MockModule } from './mock/mock.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CustomerEntity, CustomerModule } from './modules/v1/entities/default/customer/customer';
+import { CustomerModule } from './modules/v1/customer';
+import { CustomerEntity } from './modules/v1/entities/default/customer/customer.entity';
 
 const ENV = process.env.NODE_ENV || 'development';
 @Module({
