@@ -1,25 +1,25 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CustomerRequestDto } from './customer.dto';
-import { CustomerEntity } from '../entities/default/customer/customer.entity';
+import { PersonRequestDto } from './person.dto';
+import { PersonEntity } from '../entities/default/person/person.entity';
 
 @Injectable()
-export class CustomerService {
+export class PersonService {
     constructor(
-        @InjectRepository(CustomerEntity) private readonly repository: Repository<CustomerEntity>
+        @InjectRepository(PersonEntity) private readonly repository: Repository<PersonEntity>
       ) {}
 
-    public async save(_entity: CustomerRequestDto): Promise<CustomerEntity> {
+    public async save(_entity: PersonRequestDto): Promise<PersonEntity> {
         const newUser = this.repository.create(_entity);
         return this.repository.save(newUser);
     }
 
-    public async find(_fields?): Promise<CustomerEntity[]> {
+    public async find(_fields?): Promise<PersonEntity[]> {
         return await this.repository.find(_fields);
     }
 
-    public async findOne(id: string): Promise<CustomerEntity> {
+    public async findOne(id: string): Promise<PersonEntity> {
         return await this.repository.findOneBy({id});
     }
 

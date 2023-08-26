@@ -4,14 +4,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MockModule } from './mock/mock.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CustomerModule } from './modules/v1/customer';
-import { CustomerEntity } from './modules/v1/entities/default/customer/customer.entity';
+import { PersonModule } from './modules/v1/person';
+import { PersonEntity } from './modules/v1/entities/default/person/person.entity';
 
 const ENV = process.env.NODE_ENV || 'development';
 @Module({
   imports: [
     MockModule,
-    CustomerModule,
+    PersonModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -25,7 +25,7 @@ const ENV = process.env.NODE_ENV || 'development';
           username: configService.get('DB_USERNAME'),
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_NAME'),
-          entities: [CustomerEntity],
+          entities: [PersonEntity],
           migrationsRun: false
       })
   }),
